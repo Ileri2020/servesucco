@@ -44,3 +44,7 @@ const uploadCloudinary = async (buffer, folder) => {
 
 export default {uploadCloudinary, cloudinary}
 
+// cloudinary.v2.api
+//   .delete_resources(['succo/img/stocks/mxaeevqkf9dop4vnv5w7'], 
+//     { type: 'upload', resource_type: 'image' })
+//   .then(console.log);

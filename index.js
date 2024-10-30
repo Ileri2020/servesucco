@@ -18,24 +18,24 @@ const __dirname = dirname(__filename);
 
 app.use(express.static(__dirname + '/public'));
 
-const corsOptions = {
-    origin:'*',                   //true
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200,
- }
-//  {
-//     origin: 'http://example.com', // use your actual domain name (or localhost), using * is not recommended
-//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
-//     allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
-//     credentials: true
-// }
+// const corsOptions = {
+//     origin:'*',                   //true
+//     // credentials:true,            //access-control-allow-credentials:true
+//     // optionSuccessStatus:200,
+//  }
+ const corsOptions = {
+    origin:'*', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
+    credentials: true
+}
 app.use(cors(corsOptions))
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authortization');
-    res.setHeader('Acces-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
-    next();
-})
+// app.use((req, res, next) => {
+//     res.setHeader('Access-Control-Allow-Origin', '*');
+//     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authortization');
+//     res.setHeader('Acces-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
+//     next()
+// })
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))

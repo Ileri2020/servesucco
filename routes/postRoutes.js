@@ -9,8 +9,14 @@ import cloud from "../config/cloudinary.js"
 dotenv.config();
 
 const router = express.Router();
-router.get("/",(req, res)=>{
-    res.send("Successfully connected to the route")
+router.get("/stocks",async (req, res)=>{
+    try {
+        const result = await mongodb.Stock.find().exec()
+        res.json(result)
+    }catch (error){
+        console.error(error)
+        res.status(500).json({ message: 'Error fetching data' });
+    }
 })
 
 router.post("/upload", uploadimg.single("file"), (req, res)=>{
@@ -19,6 +25,10 @@ router.post("/upload", uploadimg.single("file"), (req, res)=>{
       }
     const { stock_name, cost, price, quantity, category, message } = req.body;
     
+    if (!stock_name && !cost && !price && !quantity && !category && !message) {
+        return res.status(400).json({ message: 'incomplete fields inputed' });
+      }
+
     const postStock =async ()=>{
         const uploaded =await cloud.uploadCloudinary(req.file.buffer, "/succo/img/stocks")
             
